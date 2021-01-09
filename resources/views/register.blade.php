@@ -9,24 +9,25 @@
     <body>
         <div class="container p-3">
             <div class="content" id="app">
+                <p class="lead">User Registration Page</p>
                 <form action="" method="post">
                     @csrf
                     <div class="form-group">
                         <label class="control-label">Name:</label>
-                        <div class="col-sm-3">
-                            <input class="form-control form-control-sm" name="Name" id="name" value="Test" required/>
+                        <div class="col-sm-6">
+                            <input class="form-control form-control-sm" name="Name" id="name" value="" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Email:</label>
-                        <div class="col-sm-3">
-                            <input type="email" class="form-control form-control-sm" name="Email" id="email" value="test@dipton.com" required/>
+                        <div class="col-sm-6">
+                            <input type="email" class="form-control form-control-sm" name="Email" id="email" value="" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Postcode:</label>
                         <div class="col-sm-3">
-                            <input class="form-control form-control-sm" name="Postcode" id="postcode" value="DH70DN" required/>
+                            <input class="form-control form-control-sm" name="Postcode" id="postcode" value="" required/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -34,7 +35,6 @@
                             <button type="submit" id="submit-btn" class="btn btn-success btn-flat">Submit</button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>

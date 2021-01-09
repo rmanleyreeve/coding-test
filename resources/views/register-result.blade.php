@@ -9,6 +9,7 @@
 <body>
 <div class="container p-3">
     <div class="content" id="app">
+        <p class="lead">User Registration Page</p>
         @if($valid)
             <div class="alert alert-success">
                 <p class="lead mb-0">Thank you {{ $vars['name'] }}, you have been registered.</p>

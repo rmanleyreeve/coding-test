@@ -27,7 +27,7 @@ Route::post('/register', function () {
 	$vars = [
 		'name' => trim($_POST['Name']),
 		'email' => strtolower(trim($_POST['Email'])),
-		'postcode' => trim($_POST['Postcode']),
+		'postcode' => strtoupper(trim($_POST['Postcode'])),
 		'msg' => ''
 	];
 
@@ -37,7 +37,7 @@ Route::post('/register', function () {
 	$res = $client->get("http://api.postcodes.io/postcodes/{$vars['postcode']}");
 	//echo $res->getBody();
 	if(200 === $res->getStatusCode()) {
-		// postcode OK
+		// postcode OK, add to database
 		$valid = true;
 		$sql = "
 		INSERT INTO users 
@@ -45,15 +45,18 @@ Route::post('/register', function () {
 		VALUES
 		(?,?,?);";
 		DB::insert($sql, [$vars['name'],$vars['email'],$vars['postcode']]);
-
-		$body = "Thank you for registering!";
-		Mail::raw($body, function ($message) use($vars) {
-			$message->to($vars['email']);
-			$message->from('rmanleyreeve@gmail.com', 'RMR');
-			$message->subject('Laravel test email');
-		});
+		// send confirmation email
+		Mail::send(
+			'email',
+			$vars,
+			function($message) use ($vars) {
+				$message
+					->to($vars['email'])
+					->from('test@localhost.com', 'RMR')
+					->subject('Registration confirmed');
+			}
+		);
 		if (Mail::failures()) {
-			// return response showing failed emails
 			var_dump(Mail::failures()); exit;
 		}
 	} else {
