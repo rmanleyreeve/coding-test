@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 
 class ListRegistered extends Command
@@ -40,9 +41,8 @@ class ListRegistered extends Command
     public function handle()
     {
     	// returns a dump of the users table, most recent first
-        echo "LIST OF REGISTERED USERS\n\nNAME\tEMAIL\tPOSTCODE\n";
-		$users = DB::select('select * from users ORDER BY rowid DESC');
-		foreach($users as $u) {
+        echo "\nLIST OF REGISTERED USERS\n\nNAME\tEMAIL\tPOSTCODE\n";
+		foreach(User::orderBy('id', 'desc')->get() as $u) {
 			echo "{$u->name}\t{$u->email}\t{$u->postcode}\n";
 		}
 		exit;
